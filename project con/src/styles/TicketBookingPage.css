@@ -1,0 +1,34 @@
+.seat-grid {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 8px;
+    max-width: 500px;
+    margin: auto;
+  }
+  
+  .seat {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+  }
+  
+  .seat.available {
+    background-color: #fff;
+  }
+  
+  .seat.selected {
+    background-color: lightgreen;
+  }
+  
+  .seat.reserved {
+    background-color: orange;
+    cursor: not-allowed;
+  }
+  
+  .seat.sold {
+    background-color: gray;
+    cursor: not-allowed;
+  }
+  
