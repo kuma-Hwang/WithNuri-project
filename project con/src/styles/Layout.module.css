@@ -1,0 +1,55 @@
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #ffffff;
+  color: #212121;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* 다크 모드 상위 클래스 */
+.dark {
+  background-color: #121212;
+  color: #f0f0f0;
+}
+
+/* ✅ Header/Footer도 이 클래스에서 제어 */
+.dark header,
+.dark footer {
+  background-color: #1f1f1f;
+  color: #f0f0f0;
+}
+
+.mainContent {
+  flex: 1;
+  padding: 40px 20px;
+  overflow-y: auto;
+
+  /* 스크롤바 숨김 */
+  scrollbar-width: none;        /* Firefox */
+  -ms-overflow-style: none;     /* IE/Edge */
+}
+
+.mainContent::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+.toggleButton {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: transparent;
+  border: 1px solid #ccc;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  z-index: 100;
+  color: inherit;
+}
+
+.dark .toggleButton {
+  background-color: #1f1f1f;
+  color: #eee;
+  border-color: #555;
+}

@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import '../styles/SeatSelector.css';
-import { Seat, SeatSelectorProps } from '../types/Seat';
+import { Seat, SeatSelectorProps } from '../types/seat';
 
 const SeatSelector: React.FC<SeatSelectorProps> = ({ concertId, showtimeId, onSelect }) => {
   const [seats, setSeats] = useState<Seat[]>([]);
   const [selectedSeatIds, setSelectedSeatIds] = useState<number[]>([]);
 
   useEffect(() => {
-    axios.get(`/api/seats/${concertId}/${showtimeId}`)
+    axios
+      .get(`/api/seats/${concertId}/${showtimeId}`)
       .then(res => {
         if (Array.isArray(res.data)) {
           setSeats(res.data);
@@ -31,9 +32,12 @@ const SeatSelector: React.FC<SeatSelectorProps> = ({ concertId, showtimeId, onSe
     onSelect(selectedSeatIds);
   }, [selectedSeatIds, onSelect]);
 
+  // seat.rowNum으로 변경
   const groupedSeats = seats.reduce((acc, seat) => {
-    if (!acc[seat.rowNumber]) acc[seat.rowNumber] = [];
-    acc[seat.rowNumber].push(seat);
+    if (!acc[seat.rowNum]) {
+      acc[seat.rowNum] = [];
+    }
+    acc[seat.rowNum].push(seat);
     return acc;
   }, {} as Record<string, Seat[]>);
 
@@ -47,7 +51,9 @@ const SeatSelector: React.FC<SeatSelectorProps> = ({ concertId, showtimeId, onSe
             .map(seat => (
               <button
                 key={seat.seatId}
-                className={`seat ${seat.status?.toLowerCase() || ''} ${selectedSeatIds.includes(seat.seatId) ? 'selected' : ''}`}
+                className={`seat ${seat.status?.toLowerCase() || ''} ${
+                  selectedSeatIds.includes(seat.seatId) ? 'selected' : ''
+                }`}
                 onClick={() => seat.status === 'AVAILABLE' && toggleSelect(seat.seatId)}
                 disabled={seat.status !== 'AVAILABLE'}
               >
